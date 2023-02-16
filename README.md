@@ -1,5 +1,24 @@
 ![](image.jpg)
 
+- [Introducción a React](#introducción-a-react)
+  - [Inicio de un proyecto de react](#inicio-de-un-proyecto-de-react)
+    - [Creando un proyecto desde cero](#creando-un-proyecto-desde-cero)
+    - [Clonando un repositorio Git de un proyecto ya existente](#clonando-un-repositorio-git-de-un-proyecto-ya-existente)
+  - [Puesta en marcha del proyecto](#puesta-en-marcha-del-proyecto)
+  - [Componentes](#componentes)
+    - [Declaración](#declaración)
+    - [Invocando/llamando/usando el componente](#invocandollamandousando-el-componente)
+    - [Expresiones de JavaScript en el HTML de un componente](#expresiones-de-javascript-en-el-html-de-un-componente)
+    - [Pasando propiedades (props) a un componente](#pasando-propiedades-props-a-un-componente)
+    - [Renderizado condicional (ahora lo ves, ahora no lo ves)](#renderizado-condicional-ahora-lo-ves-ahora-no-lo-ves)
+  - [Incluyendo archivos](#incluyendo-archivos)
+    - [Imágenes](#imágenes)
+    - [CSS](#css)
+    - [Módulo CSS](#módulo-css)
+  - [Hooks](#hooks)
+    - [useState](#usestate)
+
+
 # Introducción a React
 
 ## Inicio de un proyecto de react
@@ -26,7 +45,7 @@ function NomeDelComponente() {
     // Aquí o teu JavaScript
     return (
         <>
-        <!-- Aquí o teu HTML>
+        {/* Aquí o teu HTML>
         </>
     )
 }
@@ -78,6 +97,23 @@ function EsteComponenteUsaAlAnterior(){
 }
 export default EsteComponenteUsaAlAnterior
 ```
+### Renderizado condicional (ahora lo ves, ahora no lo ves)
+En múltiples ocasiones interesa mostrar componentes o bloques de HTML de forma condicional. Un ejemplo puede ser mostrar el área privada de la aplicación sólo cuando se ha iniciado una sesión. Suele realizarse empleando el operador `&&` de JS.
+
+```jsx
+import PanelPrivado from "../ruta/al/fichero/del/PanelPrivado"
+import Login from "../ruta/al/fichero/del/Login" 
+function AreaDeUsuario(props) {
+    return(
+        <>
+        {propos.sesionIniciada === true && <PanelPrivado>}
+        {propos.sesionIniciada === false && <Login>}
+        </>
+    )
+}
+export default AreaDeUsuario
+```
+
 ## Incluyendo archivos
 ### Imágenes
 ```jsx
@@ -150,7 +186,7 @@ function Contador () {
     }
     return (
         <>
-        <!-- Usamos o estado para acceder ó valor -->
+        {/* Usamos o estado para acceder ó valor */}
         <p>Total: {contador}</p>
         <button onClick={manexadorDoClick}>
             Contar
@@ -177,12 +213,12 @@ function Registro() {
         <>
         <label>
             Nombre:
-            <!--
+            {/*
                 Actualizamos el valor del input asignandole el 
                 valor almacenado en el estado.
                 Cuando se introduce un nuevo valor en el input llamamos
                 al manejador para actualizar el estado.
-            -->
+            */}
             <input type="text" name="nombre" value={nombre} onInput={manejadorDeEntradasEnNombre}/>
             <p>Este es el contenido en maiusculas: {nombre.toUpperCase()}</p>
         </label>
