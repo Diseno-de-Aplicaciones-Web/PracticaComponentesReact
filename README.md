@@ -11,6 +11,7 @@
     - [Expresiones de JavaScript en el HTML de un componente](#expresiones-de-javascript-en-el-html-de-un-componente)
     - [Pasando propiedades (props) a un componente](#pasando-propiedades-props-a-un-componente)
     - [Renderizado condicional (ahora lo ves, ahora no lo ves)](#renderizado-condicional-ahora-lo-ves-ahora-no-lo-ves)
+    - [Generación de HTML y componentes personalizados a partir de arrays de datos](#generación-de-html-y-componentes-personalizados-a-partir-de-arrays-de-datos)
   - [Incluyendo archivos](#incluyendo-archivos)
     - [Imágenes](#imágenes)
     - [CSS](#css)
@@ -97,6 +98,8 @@ function EsteComponenteUsaAlAnterior(){
 }
 export default EsteComponenteUsaAlAnterior
 ```
+Mediante propiedades (`props`) podemos transmitir, enviar o pasar a componentes hijos cualquier "cosa" a los hijos directos: `strings`, numeros, booleandos... pero también `arrays`, objetos o ¡funciones y componentes!.
+
 ### Renderizado condicional (ahora lo ves, ahora no lo ves)
 En múltiples ocasiones interesa mostrar componentes o bloques de HTML de forma condicional. Un ejemplo puede ser mostrar el área privada de la aplicación sólo cuando se ha iniciado una sesión. Suele realizarse empleando el operador `&&` de JS.
 
@@ -112,6 +115,42 @@ function AreaDeUsuario(props) {
     )
 }
 export default AreaDeUsuario
+```
+### Generación de HTML y componentes personalizados a partir de arrays de datos
+React puede manejar arrays dentro del código HTML entregado por los componentes. La manera en que lo hace es descomponiendo el array y tratando cada uno de los elementos del mismo como si estubiese escritos secuencialmente en el contenido del return. Es decir, en el siguiente ejemplo, los elementos HTML guardados en el array de la constante elementosDeLaLista se mostrarán como si los hubiesemos escrito directamente en la etiqueta `<ul>`:
+```jsx
+import EjemploDeLista(){
+    const elementosDeLaLista = [
+        <li>Una cosa</li>,
+        <li>Otra cosa</li>,
+        <li>Una última cosa</li>
+    ]
+    return (
+        <ul>
+            {elementosDeLaLista}
+        </ul>
+    )
+}
+```
+Esto asienta las bases para poder generar elementos HTML o componentes personalizados en base al contenido de arrays de datos, usando el metodo `.map`([w3schools](https://www.w3schools.com/jsref/jsref_map.asp)) de los array y las funciones flecha de JavaScript para crear un array con los elementos personalizados:
+```jsx
+import TarjetaLibro from "../ruta/al/fichero/del/TarjetaLibro"
+function ColeccionLibros() {
+    const libros = [
+        {titulo: "Cosas de React", portada: "/images/portada123.png"},
+        {titulo: "React para Dummies", portada: "/images/portada666.png"},
+        {titulo: "React o no React", portada: "/images/portada042.png"},
+    ]
+    const tarjetasLibros = libros.map(
+        cadaLibro => <TarjetaLibro titulo={cadaLibro.titulo} portada={cadaLibro.portada}/>
+    )
+    return (
+        <section>
+            <h2>Libros en la colección</h2>
+            {tarjetasLibros}
+        </section>
+    )
+}
 ```
 
 ## Incluyendo archivos
